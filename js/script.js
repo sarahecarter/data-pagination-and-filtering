@@ -60,7 +60,7 @@ function addPagination(list) {
       linkList.insertAdjacentHTML("beforeend", button);
    }
    //select first page button and give it class active
-   let firstPage = document.querySelector('button');
+   let firstPage = document.querySelector('li button');
    firstPage.className = 'active';
    //add event listener for clicks on link-list
    linkList.addEventListener('click', e => {
@@ -116,9 +116,11 @@ function searchStudents() {
    }
    //call showPage function and have it display matches
    showPage(matches, 1);
+   //use addPagination function to add buttons
+   addPagination(matches);
 }
 
-//event listeners 
+//search event listeners 
 input.addEventListener('keyup', searchStudents);
 searchButton.addEventListener('click', searchStudents);
 
