@@ -44,20 +44,43 @@ This function will create and insert/append the elements needed for the paginati
 
 function addPagination(list) {
    //create variable to store number of page buttons needed
-   let pages = Math.ciel(list.length / 9);
+   let pages = Math.ceil(list.length / 9);
    //select ul link-list
+   let linkList = document.querySelector('.link-list');
    //set html content of link-list to empty string
+   linkList.innerHTML = '';
    //loop over page number variable
+   for (let i = 1; i < pages; i++) {
+      let pageNumber = [i];
       //create buttons for each item
+      let button = `
+         <li>
+            <button type="button">${pageNumber}</button>
+         </li>
+      `;
       //insert buttons into link-list
+      linkList.insertAdjacentHTML("beforeend", button);
+   }
    //select first page button and give it class active
+   let firstPage = document.querySelector('button');
+   firstPage.className = 'active';
    //add event listener for clicks on link-list
+   linkList.addEventListener('click', e => {
       //check if button is clicked
+      if (e.target.tagName === 'BUTTON') {
          //remove active class from other buttons
+         let active = document.querySelector('.active');
+         active.className = '';
          //add active class to button clicked
+         e.target.className = 'active';
          //call showPage function using list and page number
-}
+         let pageClicked = e.target.innerHTML;
+         showPage(list, pageClicked);
+      }    
+   })
 
+}
 
 // Call functions
 showPage(data, 1);
+addPagination(data);
