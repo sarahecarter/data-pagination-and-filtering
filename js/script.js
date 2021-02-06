@@ -45,14 +45,12 @@ This function will create and insert/append the elements needed for the paginati
 function addPagination(list) {
    //create variable to store number of page buttons needed
    let pages = Math.ceil(list.length / 9);
-   //select ul link-list
+   
    let linkList = document.querySelector('.link-list');
-   //set html content of link-list to empty string
    linkList.innerHTML = '';
-   //loop over page number variable
-   for (let i = 1; i < pages; i++) {
+   //loop over page number variable and create button for each item
+   for (let i = 1; i <= pages; i++) {
       let pageNumber = [i];
-      //create buttons for each item
       let button = `
          <li>
             <button type="button">${pageNumber}</button>
@@ -78,9 +76,50 @@ function addPagination(list) {
          showPage(list, pageClicked);
       }    
    })
-
 }
 
 // Call functions
 showPage(data, 1);
 addPagination(data);
+
+/*
+Create a search bar 
+Create search function
+Add event listener to search button and input field
+*/
+
+let header = document.querySelector('.header');
+let searchBar = `
+<label for="search" class="student-search">
+   <input id="search" placeholder="Search by name...">
+   <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+</label>
+`;
+header.insertAdjacentHTML("beforeend", searchBar);
+let searchButton = document.querySelector('button');
+let input = document.querySelector('input');
+
+
+function searchStudents() {
+   let searchInput = input.value.toLowerCase();
+   //initialize empty array to store any search matches
+   let matches = [];
+   //loop through objects in data 
+   for (let i = 0; i < data.length; i++) {
+      //create full name variable and make lowercase
+      let fullName = `${data[i].name.first} ${data[i].name.last}`;
+      fullName = fullName.toLowerCase();
+      //check if name includes search input and add current object to match array
+      if (fullName.includes(searchInput)) {
+         matches.push(data[i]);
+      }
+   }
+   //call showPage function and have it display matches
+   showPage(matches, 1);
+}
+
+//event listeners 
+input.addEventListener('keyup', searchStudents);
+searchButton.addEventListener('click', searchStudents);
+
+
