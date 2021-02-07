@@ -98,7 +98,7 @@ let searchBar = `
 `;
 header.insertAdjacentHTML("beforeend", searchBar);
 let errorMessage = `
-   <h3 class="no-results">No results found</h3>
+   <h3 class="no-results">No results found.</h3>
 `;
 header.insertAdjacentHTML("afterend", errorMessage);
 let error = document.querySelector('.no-results');
