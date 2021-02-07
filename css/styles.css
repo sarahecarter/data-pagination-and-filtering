@@ -176,12 +176,12 @@ header h2 {
 
 .no-results {
 	font-family: 'Nunito', sans-serif;
-	display: block;
+	display: none;
+  text-align: center;
 	font-size: 1.5rem;
 	color: #6d778a;
 	width: 500px;
-	margin-top: 15px;
-	margin-bottom: 15px;
+  margin: 15px auto;
 }
 
 

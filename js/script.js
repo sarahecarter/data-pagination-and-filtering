@@ -96,11 +96,18 @@ let searchBar = `
 </label>
 `;
 header.insertAdjacentHTML("beforeend", searchBar);
+let errorMessage = `
+   <h3 class="no-results">No results found</h3>
+`;
+header.insertAdjacentHTML("afterend", errorMessage);
+let error = document.querySelector('.no-results');
 let searchButton = document.querySelector('button');
 let input = document.querySelector('input');
 
 
 function searchStudents() {
+   //reset display of error message so it is removed before new search input
+   error.style.display = "none";
    let searchInput = input.value.toLowerCase();
    //initialize empty array to store any search matches
    let matches = [];
@@ -113,6 +120,10 @@ function searchStudents() {
       if (fullName.includes(searchInput)) {
          matches.push(data[i]);
       }
+   }
+   //if no matches are found display no results message
+   if (matches.length === 0) {
+      error.style.display = "block";
    }
    //call showPage function and have it display matches
    showPage(matches, 1);
