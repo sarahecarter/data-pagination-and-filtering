@@ -7,13 +7,14 @@ FSJS Project 2 - Data Pagination and Filtering
 Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
+let studentList = document.querySelector('.student-list');
 
 function showPage(list, page) {
    //index of items to be displayed on the page
    let startIndex = ((page * 9) - 9);
    let endIndex = (page * 9);
 
-   let studentList = document.querySelector('.student-list');
+   
    studentList.innerHTML = '';
    //loop over items and check if they are within page index
    for (let i = 0; i < list.length; i++) {
@@ -41,12 +42,12 @@ function showPage(list, page) {
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
+let linkList = document.querySelector('.link-list');
 
 function addPagination(list) {
    //create variable to store number of page buttons needed
    let pages = Math.ceil(list.length / 9);
-   
-   let linkList = document.querySelector('.link-list');
+
    linkList.innerHTML = '';
    //loop over page number variable and create button for each item
    for (let i = 1; i <= pages; i++) {
@@ -106,8 +107,10 @@ let input = document.querySelector('input');
 
 
 function searchStudents() {
-   //reset display of error message so it is removed before new search input
+   //reset display of error message, objects, and pages
    error.style.display = "none";
+   studentList.style.display = "grid";
+   linkList.style.display = "inline";
    let searchInput = input.value.toLowerCase();
    //initialize empty array to store any search matches
    let matches = [];
@@ -121,14 +124,18 @@ function searchStudents() {
          matches.push(data[i]);
       }
    }
-   //if no matches are found display no results message
+   //if no matches are found display no results message and hide list and pages
    if (matches.length === 0) {
       error.style.display = "block";
+      studentList.style.display = "none";
+      linkList.style.display ="none";
+   } else {
+      //call showPage function and have it display matches
+      showPage(matches, 1);
+      //use addPagination function to add buttons
+      addPagination(matches);
    }
-   //call showPage function and have it display matches
-   showPage(matches, 1);
-   //use addPagination function to add buttons
-   addPagination(matches);
+   
 }
 
 //search event listeners 
